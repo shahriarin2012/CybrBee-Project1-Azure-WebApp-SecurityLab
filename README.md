@@ -20,49 +20,180 @@ This repository contains documentation, configuration steps, and project deliver
 
 # Implementation Workflow #
 
+# CybrBee Project #1 – Azure Web Application Security Lab
+
 ![Azure](https://img.shields.io/badge/Cloud-Azure-blue?logo=microsoftazure)
 ![Docker](https://img.shields.io/badge/Container-Docker-blue?logo=docker)
 ![Security](https://img.shields.io/badge/Security-SSL%2FTLS-green)
 ![Firewall](https://img.shields.io/badge/WAF-Enabled-orange)
 ![HTML](https://img.shields.io/badge/Language-HTML-lightgrey)
 
-## 📌 Overview
-**CybrBee Project #1** is a structured, three-day cloud security lab that simulates enterprise-grade web application deployment and protection on Microsoft Azure. You’ll configure a custom domain, deploy a Docker-based site, implement SSL/TLS with both self-signed and managed certificates, and enable WAF protections with Defender for Cloud hardening.
+## 📌 Short Tagline
+Three-day Azure security lab: build, encrypt, and protect a Docker-based web app with custom domain, SSL/TLS, WAF rules, and Defender for Cloud hardening.
 
 ---
 
-## 🚀 Project Timeline
+## 📈 Project Workflow Overview
 
-### Day 1 – Build & Deploy
-- Create Azure Web App
-- Register and map GoDaddy domain
-- Deploy Docker-based Cyber Blog Framework
-- Customize HTML content
+### **Day 1 – Build, Host, and Customize the Web Application**
+**Objective:** Establish the foundational environment for the project by creating and hosting a cloud-based web application, configuring a custom domain, and deploying the application framework.  
 
-### Day 2 – Secure with SSL/TLS
-- Create Azure Key Vault
-- Generate self-signed cert with OpenSSL; convert to PFX
-- Import & bind cert to App Service
-- Add Azure-managed certificate for trusted TLS
-- Compare certificate trust models
+**Step-by-Step Procedure:**
+1. **Create an Azure Web App**
+   - Log in to [Azure Portal](https://portal.azure.com) → **App Services** → **+ Create** → **Web App**.
+   - Configure subscription, resource group, unique name, PHP 8.2, Linux OS, and Basic B1 plan.
+   - Click **Review + Create** → **Create**.
 
-### Day 3 – Advanced Protection
-- Create Azure WAF policy (regional) and analyze managed rules
-- Add custom geo-based access rule
-- Use Microsoft Defender for Cloud to remediate recommendations
+2. **Register a Custom Domain via GoDaddy**
+   - Purchase a `.club` or `.xyz` domain from [GoDaddy](https://www.godaddy.com) (1-year plan for discount).
+   - Skip publishing the placeholder page.
 
----
+3. **Map Domain to Azure App Service**
+   - In Azure App Service → **Custom Domains** → **Add Custom Domain**.
+   - Get **A record** and **TXT record** from Azure.
+   - Add them in GoDaddy DNS (TTL 1 hour) and remove the parked A record.
+   - Validate and bind the domain in Azure.
 
-## 🛠 Technologies
-- **Platform:** Microsoft Azure  
-- **Domain Provider:** GoDaddy  
-- **Containerization:** Docker  
-- **Security:** Azure Key Vault, SSL/TLS, WAF  
-- **Analysis:** Microsoft Defender for Cloud  
-- **Tools:** OpenSSL, Bash CLI, HTML  
+4. **Deploy the Docker-Based Cyber Blog Framework**
+   ```bash
+   az webapp config container set \
+     --name <webapp-name> \
+     --resource-group <resource-group> \
+     --docker-custom-image-name cyberxsecurity/project1-apachewebserver:4.0 \
+     --enable-app-service-storage -t
+
+5. **Customize HTML Content:**
+
+SSH into container: Azure App Service → SSH → Go.
+
+Edit /var/www/html/index.html to update:
+
+Blog title, intro, email, LinkedIn link, profile image, and two blog posts.
+
+Backup after edits:
+cp /var/www/html/index.html /home
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+### **Day 2 – Secure the Application with SSL/TLS**
+
+**Objective:** Implement encryption for secure communications between clients and the web application.
+
+Step-by-Step Procedure:
+
+1. Create an Azure Key Vault
+
+- Name: project1-keyvault → same region as Day 1 → Standard tier.
+- Set Vault Access Policy for your account.
+
+2. Generate Self-Signed Certificate with OpenSSL
+
+openssl req -x509 -sha256 -nodes -days 365 \
+  -newkey rsa:2048 \
+  -keyout project1_key.key \
+  -out project1_cert.crt \
+  -addext "extendedKeyUsage=serverAuth"
+
+- Fill in certificate details.
+
+- Convert to PFX:
+  openssl pkcs12 -export \
+  -out project1_cert.pfx \
+  -inkey project1_key.key \
+  -in project1_cert.crt
+
+3. Import and Bind Self-Signed Certificate
+
+Azure Key Vault → Certificates → Import .pfx.
+
+App Service → Certificates → Add from Key Vault.
+
+Bind to domain under TLS/SSL Settings.
+
+4. Deploy Azure-Managed Certificate
+
+App Service → TLS/SSL Settings → Managed Certificate → Create & bind.
+
+5. Validate
+
+Check site in browser:
+
+Self-signed cert → security warning.
+
+Managed cert → no warning.
 
 
----
+
+---------------------------------------------------------------------------------------------------------------------
+### **Day 3 – Implement Advanced Protection **
+
+
+
+**Objective:** Apply advanced security controls using Azure Web Application Firewall (WAF) and Microsoft Defender for Cloud.
+
+Step-by-Step Procedure:
+
+1. Create a WAF Policy
+
+Azure Portal → Web Application Firewall policies (WAF) → + Create.
+
+Select Regional WAF, match region, and associate with App Service or Front Door.
+
+2. Analyze Managed Rules
+
+Review rules for SQL injection, XSS, etc.
+
+Enable/disable as needed.
+
+3. Configure Custom Geo-Blocking Rule
+
+Custom Rules → + Add.
+
+Name: Project1Rule → Priority: 100.
+
+Match: Geo Location → Remote Address → is not → [USA, Canada, Australia].
+
+Action: Deny.
+
+4. Remediate Security Recommendations
+
+In App Service → Microsoft Defender for Cloud.
+
+Apply fixes for HTTPS enforcement, TLS settings, backups, etc.
+
+5. Final Verification
+
+Confirm geo-blocking works.
+
+Check Defender for Cloud shows improved security posture.
+
+
+# ------------------------------------------------------------------------------------------
+
+flowchart LR
+  U[User Browser] -->|HTTPS| DNS[(GoDaddy DNS)]
+  DNS -->|CNAME/A| WAF[Azure Front Door / WAF Policy]
+  WAF -->|HTTPS (Inspected)| APP[Azure App Service<br/>(Web App + Docker)]
+
+  subgraph Certificates
+    KV[Azure Key Vault]
+    SS[Self-Signed Cert (PFX)]
+    MC[Managed Cert]
+  end
+
+  KV --- SS
+  KV -.binds.-> APP
+  MC --> APP
+
+  subgraph Application
+    APP --> HTML[Custom Blog (HTML)]
+    APP --> Container[Docker Image]
+  end
+
+
+# ----------------------------------------------------------------------------------------
+
+
 
 # Conclusion: 
 
