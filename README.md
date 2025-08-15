@@ -68,7 +68,7 @@ This repository contains documentation, configuration steps, and project deliver
 
 This project exemplifies the integration of cloud technologies, web application security, and operational best practices in a structured, real-world scenario. By combining Azure’s scalable infrastructure, enterprise-grade encryption, and advanced firewall capabilities, it delivers both a functional solution and a demonstration of industry-aligned cybersecurity skills. The methodologies applied here can be adapted, extended, and scaled to meet diverse organizational security requirements while reinforcing a culture of proactive threat mitigation and operational excellence.
 
-Next Steps
+## Next Steps ##
 
 Enhancement: Integrate automated CI/CD pipelines for continuous deployment and security validation.
 
