@@ -17,3 +17,75 @@ Gained practical experience in SSL/TLS management, cloud security configurations
 Built a showcase-ready cybersecurity blog to demonstrate technical skills to employers.
 
 This repository contains documentation, configuration steps, and project deliverables for all three days. It serves as both a reference for future projects and a professional portfolio piece.
+
+
+# CybrBee Project #1 – Azure Web Application Security Lab
+
+![Azure](https://img.shields.io/badge/Cloud-Azure-blue?logo=microsoftazure)
+![Docker](https://img.shields.io/badge/Container-Docker-blue?logo=docker)
+![Security](https://img.shields.io/badge/Security-SSL%2FTLS-green)
+![Firewall](https://img.shields.io/badge/WAF-Enabled-orange)
+![HTML](https://img.shields.io/badge/Language-HTML-lightgrey)
+
+## 📌 Overview
+**CybrBee Project #1** is a structured, three-day cloud security lab that simulates enterprise-grade web application deployment and protection on Microsoft Azure. You’ll configure a custom domain, deploy a Docker-based site, implement SSL/TLS with both self-signed and managed certificates, and enable WAF protections with Defender for Cloud hardening.
+
+---
+
+## 🚀 Project Timeline
+
+### Day 1 – Build & Deploy
+- Create Azure Web App
+- Register and map GoDaddy domain
+- Deploy Docker-based Cyber Blog Framework
+- Customize HTML content
+
+### Day 2 – Secure with SSL/TLS
+- Create Azure Key Vault
+- Generate self-signed cert with OpenSSL; convert to PFX
+- Import & bind cert to App Service
+- Add Azure-managed certificate for trusted TLS
+- Compare certificate trust models
+
+### Day 3 – Advanced Protection
+- Create Azure WAF policy (regional) and analyze managed rules
+- Add custom geo-based access rule
+- Use Microsoft Defender for Cloud to remediate recommendations
+
+---
+
+## 🛠 Technologies
+- **Platform:** Microsoft Azure  
+- **Domain Provider:** GoDaddy  
+- **Containerization:** Docker  
+- **Security:** Azure Key Vault, SSL/TLS, WAF  
+- **Analysis:** Microsoft Defender for Cloud  
+- **Tools:** OpenSSL, Bash CLI, HTML  
+
+---
+
+## 🗺️ Architecture (Azure + SSL + WAF)
+
+> GitHub supports Mermaid natively. The diagram below renders automatically in the README.
+
+```mermaid
+flowchart LR
+  U[User Browser] -->|HTTPS| DNS[(GoDaddy DNS)]
+  DNS -->|CNAME/A| FDFW[Azure Front Door (Optional) <br/> + WAF Policy]
+  DNS -->|A/CNAME (direct)| APP[Azure App Service<br/>(Web App + Docker)]
+  FDFW -->|HTTPS (WAF-inspected)| APP
+
+  subgraph TLS & Certificates
+    KV[Azure Key Vault]
+    SS[Self-Signed Cert (PFX)]
+    MC[App Service Managed Cert]
+  end
+
+  KV --- SS
+  KV -.optional import/bind .-> APP
+  MC --> APP
+
+  subgraph App
+    APP --> HTML[Custom Blog (HTML)]
+    APP --> Container[Docker Image]
+  end
