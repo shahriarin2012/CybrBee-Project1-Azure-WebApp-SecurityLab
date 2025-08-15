@@ -61,4 +61,6 @@ This repository contains documentation, configuration steps, and project deliver
 - **Analysis:** Microsoft Defender for Cloud  
 - **Tools:** OpenSSL, Bash CLI, HTML  
 
+
 ---
+Conclusion: 
