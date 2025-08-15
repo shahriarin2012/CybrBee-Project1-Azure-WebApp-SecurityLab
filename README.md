@@ -83,44 +83,46 @@ Step-by-Step Procedure:
 
 1. Create an Azure Key Vault
 
-- Name: project1-keyvault → same region as Day 1 → Standard tier.
-- Set Vault Access Policy for your account.
+        - Name: project1-keyvault → same region as Day 1 → Standard tier.
+        - Set Vault Access Policy for your account.
 
 2. Generate Self-Signed Certificate with OpenSSL
+         openssl req -x509 -sha256 -nodes -days 365 \
+        -newkey rsa:2048 \
+        -keyout project1_key.key \
+        -out project1_cert.crt \
+        -addext "extendedKeyUsage=serverAuth"
 
-openssl req -x509 -sha256 -nodes -days 365 \
-  -newkey rsa:2048 \
-  -keyout project1_key.key \
-  -out project1_cert.crt \
-  -addext "extendedKeyUsage=serverAuth"
 
-- Fill in certificate details.
 
-- Convert to PFX:
-  openssl pkcs12 -export \
-  -out project1_cert.pfx \
-  -inkey project1_key.key \
-  -in project1_cert.crt
+         - Fill in certificate details.
 
-3. Import and Bind Self-Signed Certificate
+           - Convert to PFX:
+   
+           openssl pkcs12 -export \
+           -out project1_cert.pfx \
+           -inkey project1_key.key \
+           -in project1_cert.crt
 
-Azure Key Vault → Certificates → Import .pfx.
+4. Import and Bind Self-Signed Certificate
 
-App Service → Certificates → Add from Key Vault.
+       Azure Key Vault → Certificates → Import .pfx.
 
-Bind to domain under TLS/SSL Settings.
+       App Service → Certificates → Add from Key Vault.
 
-4. Deploy Azure-Managed Certificate
+       Bind to domain under TLS/SSL Settings.
 
-App Service → TLS/SSL Settings → Managed Certificate → Create & bind.
+5. Deploy Azure-Managed Certificate
 
-5. Validate
+       App Service → TLS/SSL Settings → Managed Certificate → Create & bind.
 
-Check site in browser:
+6. Validate
 
-Self-signed cert → security warning.
+       Check site in browser:
 
-Managed cert → no warning.
+            Self-signed cert → security warning.
+
+            Managed cert → no warning.
 
 
 
@@ -135,64 +137,40 @@ Step-by-Step Procedure:
 
 1. Create a WAF Policy
 
-Azure Portal → Web Application Firewall policies (WAF) → + Create.
-
-Select Regional WAF, match region, and associate with App Service or Front Door.
+      Azure Portal → Web Application Firewall policies (WAF) → + Create.
+  
+      Select Regional WAF, match region, and associate with App Service or Front Door.
 
 2. Analyze Managed Rules
 
-Review rules for SQL injection, XSS, etc.
+     Review rules for SQL injection, XSS, etc.
 
-Enable/disable as needed.
+     Enable/disable as needed.
 
 3. Configure Custom Geo-Blocking Rule
 
-Custom Rules → + Add.
-
-Name: Project1Rule → Priority: 100.
-
-Match: Geo Location → Remote Address → is not → [USA, Canada, Australia].
-
-Action: Deny.
+   Custom Rules → + Add.
+   
+   Name: Project1Rule → Priority: 100.
+   
+   Match: Geo Location → Remote Address → is not → [USA, Canada, Australia].
+   
+   Action: Deny.
 
 4. Remediate Security Recommendations
 
-In App Service → Microsoft Defender for Cloud.
-
-Apply fixes for HTTPS enforcement, TLS settings, backups, etc.
+   In App Service → Microsoft Defender for Cloud.
+   
+   Apply fixes for HTTPS enforcement, TLS settings, backups, etc.
 
 5. Final Verification
 
-Confirm geo-blocking works.
-
-Check Defender for Cloud shows improved security posture.
+   Confirm geo-blocking works.
+   
+   Check Defender for Cloud shows improved security posture.
 
 
 # ------------------------------------------------------------------------------------------
-
-flowchart LR
-  U[User Browser] -->|HTTPS| DNS[(GoDaddy DNS)]
-  DNS -->|CNAME/A| WAF[Azure Front Door / WAF Policy]
-  WAF -->|HTTPS (Inspected)| APP[Azure App Service<br/>(Web App + Docker)]
-
-  subgraph Certificates
-    KV[Azure Key Vault]
-    SS[Self-Signed Cert (PFX)]
-    MC[Managed Cert]
-  end
-
-  KV --- SS
-  KV -.binds.-> APP
-  MC --> APP
-
-  subgraph Application
-    APP --> HTML[Custom Blog (HTML)]
-    APP --> Container[Docker Image]
-  end
-
-
-# ----------------------------------------------------------------------------------------
-
 
 
 # Conclusion: 
