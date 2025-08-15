@@ -58,7 +58,11 @@ Three-day Azure security lab: build, encrypt, and protect a Docker-based web app
    - In Azure App Service → **Custom Domains** → **Add Custom Domain**.
    - Get **A record** and **TXT record** from Azure.
    - Add them in GoDaddy DNS (TTL 1 hour) and remove the parked A record.
+   -  <img width="1364" height="707" alt="image" src="https://github.com/user-attachments/assets/49320adf-e44e-45fd-a0ba-54791034da8c" />
+
    - Validate and bind the domain in Azure.
+   -  <img width="1575" height="302" alt="image" src="https://github.com/user-attachments/assets/a69e4de1-be3a-4730-88e5-b0e3eb6ef5ef" />
+
 
 4. **Deploy the Docker-Based Cyber Blog Framework**
    ```bash
@@ -68,6 +72,9 @@ Three-day Azure security lab: build, encrypt, and protect a Docker-based web app
      --docker-custom-image-name cyberxsecurity/project1-apachewebserver:4.0 \
      --enable-app-service-storage -t
 
+     --  <img width="865" height="230" alt="image" src="https://github.com/user-attachments/assets/d592e734-327f-4e99-b937-89edb6df91b9" />
+
+
 5. **Customize HTML Content:**
 
 SSH into container: Azure App Service → SSH → Go.
@@ -75,6 +82,10 @@ SSH into container: Azure App Service → SSH → Go.
 Edit /var/www/html/index.html to update:
 
 Blog title, intro, email, LinkedIn link, profile image, and two blog posts.
+
+<img width="1802" height="847" alt="image" src="https://github.com/user-attachments/assets/92564f4e-d5b5-4241-88c7-1445a6d16b9c" />
+
+
 
 Backup after edits:
 cp /var/www/html/index.html /home
@@ -91,8 +102,11 @@ Step-by-Step Procedure:
 
         - Name: project1-keyvault → same region as Day 1 → Standard tier.
         - Set Vault Access Policy for your account.
+   
+   <img width="997" height="226" alt="image" src="https://github.com/user-attachments/assets/c8edb083-3f90-4e6f-9764-e4f6a270660c" />
 
-2. Generate Self-Signed Certificate with OpenSSL
+
+3. Generate Self-Signed Certificate with OpenSSL
          openssl req -x509 -sha256 -nodes -days 365 \
         -newkey rsa:2048 \
         -keyout project1_key.key \
@@ -122,7 +136,18 @@ Step-by-Step Procedure:
 
        App Service → TLS/SSL Settings → Managed Certificate → Create & bind.
 
-6. Validate
+   <img width="2048" height="1152" alt="image" src="https://github.com/user-attachments/assets/a4097c70-fe77-4d7e-b989-4d08fbbd367f" />
+
+
+
+   <img width="2048" height="1152" alt="image" src="https://github.com/user-attachments/assets/23ba8f84-e39c-446a-a1dc-0334df0eb7ab" />
+
+   <img width="2048" height="1152" alt="image" src="https://github.com/user-attachments/assets/95b014c5-0c5a-447e-9fd1-7275c5ab5080" />
+
+
+
+
+7. Validate
 
        Check site in browser:
 
@@ -147,13 +172,16 @@ Step-by-Step Procedure:
   
       Select Regional WAF, match region, and associate with App Service or Front Door.
 
-2. Analyze Managed Rules
+   <img width="1419" height="221" alt="image" src="https://github.com/user-attachments/assets/3de24736-cd44-421a-a6d3-5c5107d95417" />
+
+
+3. Analyze Managed Rules
 
      Review rules for SQL injection, XSS, etc.
 
      Enable/disable as needed.
 
-3. Configure Custom Geo-Blocking Rule
+4. Configure Custom Geo-Blocking Rule
 
    Custom Rules → + Add.
    
@@ -163,18 +191,38 @@ Step-by-Step Procedure:
    
    Action: Deny.
 
-4. Remediate Security Recommendations
+   <img width="1886" height="651" alt="image" src="https://github.com/user-attachments/assets/2d8e45d5-4bce-466f-be22-bcf715c6440d" />
+
+
+6. Remediate Security Recommendations
 
    In App Service → Microsoft Defender for Cloud.
    
    Apply fixes for HTTPS enforcement, TLS settings, backups, etc.
 
-5. Final Verification
+   -Before Fixes:
+
+   <img width="1600" height="586" alt="image" src="https://github.com/user-attachments/assets/b5ab95eb-01a3-4f16-92cb-54e912c56780" />
+
+
+   
+
+    -After fixes:
+
+   <img width="2048" height="1152" alt="image" src="https://github.com/user-attachments/assets/9983450b-531e-4a64-ae53-d738c028620e" />
+
+   <img width="1600" height="550" alt="image" src="https://github.com/user-attachments/assets/48c5fe0f-94da-4755-9e91-2d4606c212a8" />
+
+
+  
+
+8. Final Verification
 
    Confirm geo-blocking works.
    
    Check Defender for Cloud shows improved security posture.
 
+ <img width="1885" height="659" alt="image" src="https://github.com/user-attachments/assets/f05c3e6a-ce42-4e1c-9fe4-98632fe1f129" />
 
 # ------------------------------------------------------------------------------------------
 
