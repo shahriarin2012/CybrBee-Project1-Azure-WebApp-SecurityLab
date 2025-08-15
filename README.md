@@ -1,5 +1,4 @@
 # CybrBee-Project1-Azure-WebApp-SecurityLab
-CybrBee Project #1 – Azure Web Application Security Lab
 
 This project delivers a hands-on, three-day cybersecurity lab experience, simulating the full lifecycle of deploying and securing a cloud-hosted web application. Designed for practical, enterprise-relevant skill development, the lab incorporates Azure services, SSL/TLS encryption, web application firewall configuration, and cloud security best practices.
 
