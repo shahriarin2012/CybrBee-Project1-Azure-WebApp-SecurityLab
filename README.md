@@ -1,6 +1,7 @@
 # CybrBee-Project1-Azure-WebApp-SecurityLab
 
-This project delivers a hands-on, three-day cybersecurity lab experience, simulating the full lifecycle of deploying and securing a cloud-hosted web application. Designed for practical, enterprise-relevant skill development, the lab incorporates Azure services, SSL/TLS encryption, web application firewall configuration, and cloud security best practices.
+ ## Executive Summary ##
+ This project delivers a hands-on, three-day cybersecurity lab experience, simulating the full lifecycle of deploying and securing a cloud-hosted web application. Designed for practical, enterprise-relevant skill development, the lab incorporates Azure services, SSL/TLS encryption, web application firewall configuration, and cloud security best practices.
 
 Day 1 focuses on foundational deployment. Participants create an Azure Web App, register a low-cost GoDaddy domain, and map it to Azure’s App Service. A Docker-based Cyber Blog Framework is deployed and customized with HTML to create a personalized cybersecurity blog containing original security articles.
 
@@ -43,6 +44,9 @@ Three-day Azure security lab: build, encrypt, and protect a Docker-based web app
    - Log in to [Azure Portal](https://portal.azure.com) → **App Services** → **+ Create** → **Web App**.
    - Configure subscription, resource group, unique name, PHP 8.2, Linux OS, and Basic B1 plan.
    - Click **Review + Create** → **Create**.
+
+     <img width="1890" height="781" alt="image" src="https://github.com/user-attachments/assets/d5064f3a-7209-4bb5-a659-de633001e869" />
+
 
 2. **Register a Custom Domain via GoDaddy**
    - Purchase a `.club` or `.xyz` domain from [GoDaddy](https://www.godaddy.com) (1-year plan for discount).
