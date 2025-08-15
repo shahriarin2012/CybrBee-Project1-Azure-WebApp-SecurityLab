@@ -18,8 +18,7 @@ Built a showcase-ready cybersecurity blog to demonstrate technical skills to emp
 
 This repository contains documentation, configuration steps, and project deliverables for all three days. It serves as both a reference for future projects and a professional portfolio piece.
 
-
-# CybrBee Project #1 – Azure Web Application Security Lab
+# Deepdive into Workflow
 
 ![Azure](https://img.shields.io/badge/Cloud-Azure-blue?logo=microsoftazure)
 ![Docker](https://img.shields.io/badge/Container-Docker-blue?logo=docker)
@@ -63,29 +62,3 @@ This repository contains documentation, configuration steps, and project deliver
 - **Tools:** OpenSSL, Bash CLI, HTML  
 
 ---
-
-## 🗺️ Architecture (Azure + SSL + WAF)
-
-> GitHub supports Mermaid natively. The diagram below renders automatically in the README.
-
-```mermaid
-flowchart LR
-  U[User Browser] -->|HTTPS| DNS[(GoDaddy DNS)]
-  DNS -->|CNAME/A| FDFW[Azure Front Door (Optional) <br/> + WAF Policy]
-  DNS -->|A/CNAME (direct)| APP[Azure App Service<br/>(Web App + Docker)]
-  FDFW -->|HTTPS (WAF-inspected)| APP
-
-  subgraph TLS & Certificates
-    KV[Azure Key Vault]
-    SS[Self-Signed Cert (PFX)]
-    MC[App Service Managed Cert]
-  end
-
-  KV --- SS
-  KV -.optional import/bind .-> APP
-  MC --> APP
-
-  subgraph App
-    APP --> HTML[Custom Blog (HTML)]
-    APP --> Container[Docker Image]
-  end
