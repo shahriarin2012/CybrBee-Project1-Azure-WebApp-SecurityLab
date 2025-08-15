@@ -18,7 +18,7 @@ Built a showcase-ready cybersecurity blog to demonstrate technical skills to emp
 
 This repository contains documentation, configuration steps, and project deliverables for all three days. It serves as both a reference for future projects and a professional portfolio piece.
 
-# Implementation Workflow
+# Implementation Workflow #
 
 ![Azure](https://img.shields.io/badge/Cloud-Azure-blue?logo=microsoftazure)
 ![Docker](https://img.shields.io/badge/Container-Docker-blue?logo=docker)
