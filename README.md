@@ -51,6 +51,8 @@ Three-day Azure security lab: build, encrypt, and protect a Docker-based web app
 2. **Register a Custom Domain via GoDaddy**
    - Purchase a `.club` or `.xyz` domain from [GoDaddy](https://www.godaddy.com) (1-year plan for discount).
    - Skip publishing the placeholder page.
+   -  <img width="1712" height="340" alt="image" src="https://github.com/user-attachments/assets/ab7b4caf-f55b-4b12-9c6b-9b8e43af70ba" />
+
 
 3. **Map Domain to Azure App Service**
    - In Azure App Service → **Custom Domains** → **Add Custom Domain**.
