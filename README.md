@@ -88,7 +88,8 @@ Blog title, intro, email, LinkedIn link, profile image, and two blog posts.
 
 
 Backup after edits:
-cp /var/www/html/index.html /home
+cp /home/index.html /var/www/html/
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
