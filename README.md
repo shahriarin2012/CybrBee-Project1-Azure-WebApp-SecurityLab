@@ -88,7 +88,12 @@ Blog title, intro, email, LinkedIn link, profile image, and two blog posts.
 
 
 Backup after edits:
-cp /home/index.html /var/www/html/
+                  -- After each update to the webpage, use the following command to backup index.html file to the /home directory, which stays persistent across reboots.
+                     cp /var/www/html/index.html  /home
+
+                  -- In case we need to restore our index.html file, run the following command:
+                     cp /home/index.html /var/www/html/
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
