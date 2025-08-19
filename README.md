@@ -86,8 +86,8 @@ Blog title, intro, email, LinkedIn link, profile image, and two blog posts.
 <img width="1802" height="847" alt="image" src="https://github.com/user-attachments/assets/92564f4e-d5b5-4241-88c7-1445a6d16b9c" />
 
 
+6. **Backup after edits:**
 
-Backup after edits:
                   -- After each update to the webpage, use the following command to backup index.html file to the /home directory, which stays persistent across reboots.
                      cp /var/www/html/index.html  /home
 
