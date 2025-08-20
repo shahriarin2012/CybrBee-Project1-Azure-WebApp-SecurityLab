@@ -232,6 +232,12 @@ Step-by-Step Procedure:
 
 # ------------------------------------------------------------------------------------------
 
+# Project Affiliation
+
+This project was completed as part of my academic and professional training with CybrBee, a cybersecurity learning and skill development initiative. The activities, deliverables, and methodologies outlined in this repository reflect structured project work conducted under the CybrBee program, designed to simulate real-world enterprise environments and strengthen hands-on expertise in cloud security and web application protection.
+
+
+# ------------------------------------------------------------------------------------------
 
 # Conclusion: 
 
